@@ -1,2 +1,3 @@
 # django-qiyu-sso
-QiYU SSO django intertation
+
+QiYu SSO django intertation
