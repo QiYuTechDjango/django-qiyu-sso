@@ -1,11 +1,12 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.views.generic import FormView
+from django_qiyu_utils import RedirectHelper
 
 from .. import settings
 from ..logic import UserLogic
 
-__all__ = ["OAuthLoginSuccessView"]
+__all__ = ["LoginSuccessView"]
 
 
 class OAuthLoginForm(forms.Form):
@@ -13,7 +14,7 @@ class OAuthLoginForm(forms.Form):
     state = forms.CharField(max_length=256)
 
 
-class OAuthLoginSuccessView(FormView):
+class LoginSuccessView(FormView):
     form_class = OAuthLoginForm
 
     template_name = "user/oauth_login_failure.html"
@@ -36,7 +37,7 @@ class OAuthLoginSuccessView(FormView):
 
     def get_success_url(self) -> str:
         # 如果已经登陆 跳转到首页 或者 next 地址
-        return settings.QI_YU_SSO_INDEX_URI
+        return RedirectHelper.to_url(self.request, settings.QI_YU_SSO_INDEX_URI)
 
     def get_form_kwargs(self) -> dict:
         kwargs = super().get_form_kwargs()
