@@ -98,6 +98,6 @@ class UserLogic(object):
 
         access_token = api.get_access_token(args)
         if access_token is None:
-            self._log.error(f"fetch access token failed")
+            self._log.error("fetch access token failed")
             raise ValidationError(f"授权码 {code=} 无效")
         return access_token.access_token
