@@ -27,4 +27,4 @@ jobs:
 
       - name: Run Lint
         run: |
-          pylama ${{ PROJECT_NAME }}
+          pylama django_qiyu_sso
