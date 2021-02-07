@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-qiyu-sso"
-version = "0.4.0"
+version = "0.4.1"
 description = "QiYu SSO intergation for Django"
 authors = ["dev <dev@qiyutech.tech>"]
 readme = "README.md"

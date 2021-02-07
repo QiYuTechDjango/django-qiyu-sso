@@ -15,6 +15,10 @@ class OAuthLoginForm(forms.Form):
 
 
 class LoginSuccessView(FormView):
+    """
+    OAuth2 登录成功之后跳转到这个页面
+    """
+
     form_class = OAuthLoginForm
 
     template_name = "user/oauth_login_failure.html"

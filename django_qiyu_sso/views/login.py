@@ -12,6 +12,10 @@ __all__ = ["OAuth2LoginView"]
 
 
 class OAuth2LoginView(RedirectView):
+    """
+    跳转到 OAuth2 登录的页面
+    """
+
     def get_redirect_url(self, *args, **kwargs) -> str:
         """
         获取登录地址
