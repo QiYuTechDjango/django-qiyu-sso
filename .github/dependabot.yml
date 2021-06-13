@@ -1,0 +1,15 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "21:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: django
+    versions:
+    - "3.2"
+  - dependency-name: django-qiyu-utils
+    versions:
+    - 0.3.0
