@@ -41,7 +41,7 @@ class UserLogic(object):
         user = self._create_user_if_not_exists(user_info)
 
         # 用户登录 成功
-        login(request, user)
+        login(request, user, backend="django.contrib.auth.backends.ModelBackend")
 
     def _create_user_if_not_exists(self, user_info: UserInfoResponse) -> AbstractUser:
         """
