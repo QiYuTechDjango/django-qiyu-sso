@@ -11,6 +11,6 @@ from .views import OAuth2LoginView, LoginSuccessView
 __all__ = ["sso_urls"]
 
 sso_urls = [
-    path("account/login/", OAuth2LoginView.as_view(), name="login"),
-    path("account/login/success/", LoginSuccessView.as_view(), name="login_success"),
+    path("accounts/login/", OAuth2LoginView.as_view(), name="login"),
+    path("accounts/login/success/", LoginSuccessView.as_view(), name="login_success"),
 ]

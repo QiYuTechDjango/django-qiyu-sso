@@ -14,8 +14,11 @@ class AdminLoginView(RedirectView):
     >>> assert isinstance(admin.site, admin.AdminSite)
     >>> admin.site.login = AdminLoginView.as_view()
 
-    注意:
-    您必须把 urls.sso_urls 添加到 URL 配置的地址中
+    .. warning::
+
+        注意:
+
+        您必须把 urls.sso_urls 添加到 URL 配置的地址中
     """
 
     def get_redirect_url(self, *args, **kwargs) -> str:
