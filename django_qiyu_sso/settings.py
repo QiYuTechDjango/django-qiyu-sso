@@ -7,6 +7,9 @@ QI_YU_SSO_REDIRECT_URI = getattr(settings, "QI_YU_SSO_REDIRECT_URI", None)
 # 登录之后默认跳转的页面
 QI_YU_SSO_INDEX_URI = getattr(settings, "QI_YU_SSO_INDEX_URI", "/")
 
+# 退出登录的 URL
+QI_YU_SSO_LOGOUT_URI = getattr(settings, "QI_YU_SSO_LOGOUT_URI", None)
+
 QI_YU_LOGIN_URI = getattr(
     settings, "QI_YU_LOGIN_URI", "https://user.qiyutech.tech/oauth/authorize/"
 )
