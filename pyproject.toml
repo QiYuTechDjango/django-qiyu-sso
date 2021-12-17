@@ -16,7 +16,7 @@ django = ">=3.2.5,<3.3"
 # QiYu SSO intergation
 qiyu-sso = ">=0.2.6,<0.3"
 # QiYu django utils
-django-qiyu-utils = ">=0.3.10,<0.4"
+django-qiyu-utils = ">=0.3.10,<0.5"
 
 [tool.poetry.dev-dependencies]
 black = ">=20.8b1"
