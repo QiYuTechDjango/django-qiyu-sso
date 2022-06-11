@@ -5,6 +5,7 @@ from django.views.generic import RedirectView
 from django_qiyu_utils import RedirectHelper
 from qiyu_sso import QiYuSSOSync
 from qiyu_sso.forms import LoginArgs
+from qiyu_sso.helper import gen_code_verifier, compute_code_challenge
 
 from .. import settings
 
@@ -31,6 +32,8 @@ class OAuth2LoginView(RedirectView):
             self.request, settings.QI_YU_SSO_INDEX_URI
         )
 
+        code_verifier = gen_code_verifier()
+
         # 跳转到登录地址
         sso_api = QiYuSSOSync()
         args = LoginArgs(
@@ -39,5 +42,7 @@ class OAuth2LoginView(RedirectView):
             redirect_uri=f'{settings.QI_YU_SSO_REDIRECT_URI}?{urlencode({"next": login_next_url})}',
             state=secrets.token_hex(20),
             scope=settings.QI_YU_SSO_SCOPE,
+            code_challenge=compute_code_challenge(code_verifier),
+            code_challenge_method="S256",
         )
         return sso_api.get_login_url(args)
