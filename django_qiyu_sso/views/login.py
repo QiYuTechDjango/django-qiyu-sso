@@ -1,6 +1,7 @@
 import secrets
 from urllib.parse import urlencode
 
+from django.http import HttpRequest
 from django.views.generic import RedirectView
 from django_qiyu_utils import RedirectHelper
 from qiyu_sso import QiYuSSOSync
@@ -21,18 +22,20 @@ class OAuth2LoginView(RedirectView):
         """
         获取登录地址
         """
+        request: HttpRequest = self.request
+
         user = self.request.user
         if user.is_authenticated:
             # 如果已经登陆 跳转到首页 或者 next 地址
-            return RedirectHelper.to_url(self.request, settings.QI_YU_SSO_INDEX_URI)
+            return RedirectHelper.to_url(request, settings.QI_YU_SSO_INDEX_URI)
 
         # 没有登录
         # 登录成功的跳转地址
-        login_next_url = RedirectHelper.to_url(
-            self.request, settings.QI_YU_SSO_INDEX_URI
-        )
+        login_next_url = RedirectHelper.to_url(request, settings.QI_YU_SSO_INDEX_URI)
 
         code_verifier = gen_code_verifier()
+
+        request.session["code_verifier"] = code_verifier  # noqa
 
         # 跳转到登录地址
         sso_api = QiYuSSOSync()

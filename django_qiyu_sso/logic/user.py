@@ -36,8 +36,12 @@ class UserLogic(object):
         state = form.cleaned_data["state"]
         self._log.info(f"oauth login {code=} {state=}")
 
+        code_verifier = request.session.get("code_verifier", None)  # noqa
+
         access_token = self._get_access_token(request, code)
-        user_info = self._get_user_info(access_token=access_token)
+        user_info = self._get_user_info(
+            access_token=access_token, code_verifier=code_verifier
+        )
         user = self._create_user_if_not_exists(user_info)
 
         # 用户登录 成功
@@ -65,11 +69,13 @@ class UserLogic(object):
         self._log.info(f"create user: {args=}")
         return User.objects.create_user(**args)
 
-    def _get_user_info(self, access_token: str) -> UserInfoResponse:
+    def _get_user_info(self, access_token: str, code_verifier: str) -> UserInfoResponse:
         api = QiYuSSOSync()
 
         args = UserInfoArgs(
-            server_uri=settings.QI_YU_USER_INFO_URI, access_token=access_token
+            server_uri=settings.QI_YU_USER_INFO_URI,
+            access_token=access_token,
+            code_verifier=code_verifier,
         )
         user_info = api.get_user_info(args)
         if user_info is None:
